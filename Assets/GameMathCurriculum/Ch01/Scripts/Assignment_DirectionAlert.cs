@@ -91,7 +91,6 @@ public class Assignment_DirectionAlert : MonoBehaviour
 
         float threshold = 0.5f;
 
-
         if (dot > threshold)
         {
             return Direction.Front;
