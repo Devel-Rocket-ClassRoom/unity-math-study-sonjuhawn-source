@@ -86,8 +86,13 @@ public class Assignment_BulletHell : MonoBehaviour
 
     private Vector3 CalculateCircleDirection(int index, int total)
     {
-        // TODO
-        return Vector3.forward;
+        float angleSapcing = 360 / total;
+        float angleDegree = index * angleSapcing;
+        float angleRadiant = angleDegree * Mathf.Deg2Rad;
+
+        Vector3 direction = new Vector3(Mathf.Cos(angleRadiant), 0f, Mathf.Sin(angleRadiant));
+
+        return direction;
     }
 
     private Vector3 CalculateSpiralDirection(int index, int total)
