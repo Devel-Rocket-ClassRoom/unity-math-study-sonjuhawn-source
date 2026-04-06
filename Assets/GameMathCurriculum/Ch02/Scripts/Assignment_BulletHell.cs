@@ -86,13 +86,15 @@ public class Assignment_BulletHell : MonoBehaviour
             {
                 rb.linearVelocity = direction * bulletSpeed;
             }
+
+            Destroy(bullet, 5f);
         }
     }
 
     private Vector3 CalculateCircleDirection(int index, int total)
     {
         float angleSpacing = 360f / total;
-        float angleDegree = index * angleSpacing;
+        float angleDegree = index * angleSpacing + Time.time * spiralTurnSpeed * Mathf.Rad2Deg;
         float angleRadian = angleDegree * Mathf.Deg2Rad;
 
         Vector3 direction = new Vector3(Mathf.Cos(angleRadian), 0f, Mathf.Sin(angleRadian));
@@ -102,19 +104,31 @@ public class Assignment_BulletHell : MonoBehaviour
 
     private Vector3 CalculateSpiralDirection(int index, int total)
     {
-        float angleSpacing = 360f / total;
-        float angleDegree = index * angleSpacing;
+        //float angleSpacing = 360f / total;
+        //float angleDegree = index * angleSpacing + Time.time * spiralTurnSpeed * Mathf.Rad2Deg;
+        //float angleRadian = angleDegree * Mathf.Deg2Rad;
+
+        //Vector3 direction = new Vector3(Mathf.Cos(angleRadian), 0f, Mathf.Sin(angleRadian));
+
+        //direction = Quaternion.Euler(0f, spiralTurnSpeed, 0f) * direction;
+        //return direction;
+
+        float baseAngle = (float)index / total * Mathf.PI * 2f;
+        float rotation = Time.time * spiralTurnSpeed;
+        float angle = baseAngle + rotation;
+        return new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
+    }
+
+    private Vector3 CalculateFanDirection(int index, int total)
+    {
+        float startangle = -fanAngle * 2f;
+        float anglestep = fanAngle / (total - 1);
+        float angleDegree = startangle + anglestep * index;
         float angleRadian = angleDegree * Mathf.Deg2Rad;
 
         Vector3 direction = new Vector3(Mathf.Cos(angleRadian), 0f, Mathf.Sin(angleRadian));
 
         return direction;
-    }
-
-    private Vector3 CalculateFanDirection(int index, int total)
-    {
-        // TODO
-        return Vector3.forward;
     }
 
     private void UpdateDebugUI()
