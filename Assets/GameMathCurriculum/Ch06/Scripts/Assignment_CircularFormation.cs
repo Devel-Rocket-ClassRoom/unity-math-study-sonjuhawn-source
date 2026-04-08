@@ -9,8 +9,8 @@
 //    - 쿼터니언 * 벡터: 배치 쿼터니언 * Vector3.forward * radius → 오프셋 위치
 // =============================================================================
 
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Assignment_CircularFormation : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class Assignment_CircularFormation : MonoBehaviour
     [SerializeField] private Transform[] units;
 
     [Tooltip("리더로부터 유닛까지의 거리 (원의 반지름)")]
-    [SerializeField] [Range(1f, 10f)] private float formationRadius = 3f;
+    [SerializeField][Range(1f, 10f)] private float formationRadius = 3f;
 
     [Header("=== UI 연결 ===")]
     [SerializeField] private TMP_Text uiInfoText;
@@ -45,12 +45,16 @@ public class Assignment_CircularFormation : MonoBehaviour
         for (int i = 0; i < units.Length; i++)
         {
             if (units[i] == null) continue;
+
             float angle = (360 / units.Length) * i;
-            Quaternion leaderrotation= Quaternion.AngleAxis(angle, Vector3.up);
+
+            Quaternion leaderrotation = Quaternion.AngleAxis(angle, leader.up);
             Quaternion rotation = leader.rotation * leaderrotation;
+
             Vector3 pos = leaderrotation * leader.forward * formationRadius;
+
             units[i].position = leader.position + pos;
-            units[i].rotation = leader.rotation * leaderrotation;
+            units[i].rotation = leaderrotation * leader.rotation;
         }
 
         UpdateUI();

@@ -41,7 +41,7 @@ public class Assignment_PatrolGuard : MonoBehaviour
 
     private void Start()
     {
-        // TODO
+        transform.rotation = Quaternion.AngleAxis(startYAngle, Vector3.up);
     }
 
     private void Update()
@@ -54,9 +54,10 @@ public class Assignment_PatrolGuard : MonoBehaviour
         dirToNext.Normalize();
         distanceToNext = Vector3.Distance(transform.position, target.position);
 
-        // TODO
+        Quaternion trunRotate = Quaternion.FromToRotation(transform.forward, dirToNext);
+        targetRotation = trunRotate * transform.rotation;
 
-        // TODO
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
         // 이동 (제공됨 — 수정 불필요)
         transform.position += transform.forward * moveSpeed * Time.deltaTime;
