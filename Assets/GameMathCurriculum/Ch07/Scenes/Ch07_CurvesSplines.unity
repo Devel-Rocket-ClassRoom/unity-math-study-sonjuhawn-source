@@ -594,9 +594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shooter
   target: {fileID: 1402179406}
-  bulletPrefap: {fileID: 8825434076278161136, guid: 8ead152ac9a0d904e90ac4391c31b47d, type: 3}
-  bulletcount: 20
-  currentDuration: 0
+  bulletPrefab: {fileID: 8825434076278161136, guid: 8ead152ac9a0d904e90ac4391c31b47d, type: 3}
+  bulletCount: 20
 --- !u!135 &570703477
 SphereCollider:
   m_ObjectHideFlags: 0
