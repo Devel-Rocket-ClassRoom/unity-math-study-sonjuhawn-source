@@ -7,6 +7,7 @@ public class IndicatorController : MonoBehaviour
     Camera cam;
     public GameObject[] cubes;
     public Image[] indicators;
+    public float margin = 50f;
 
     Vector3 cubePosInScreen;
     Vector3 cubePosInView;
@@ -29,16 +30,33 @@ public class IndicatorController : MonoBehaviour
                 cubePosInView.y >= 0f && cubePosInView.y <= 1f &&
                 cubePosInView.z > 0f)
             {
-                cubes[i].SetActive(true);
                 indicators[i].enabled = false;
 
             }
             else
             {
-                cubes[i].SetActive(false);
                 indicators[i].enabled = true;
 
-                indicators[i].rectTransform.position = cubePosInScreen;
+                float centerX = Screen.width / 2f;
+                float centerY = Screen.height / 2f;
+
+                float ClampIndicatorsX;
+                float ClampIndicatorsY;
+
+                // 중심 기준 반전
+                if (cubePosInView.z < 0)
+                {
+                    float reversedX = centerX + (centerX - cubePosInScreen.x);
+                    float reversedY = centerY + (centerY - cubePosInScreen.y);
+
+                    ClampIndicatorsX = Mathf.Clamp(reversedX, margin, Screen.width - margin);
+                    ClampIndicatorsY = Mathf.Clamp(reversedY, margin, Screen.height - margin);
+                }
+
+                ClampIndicatorsX = Mathf.Clamp(cubePosInScreen.x, margin, Screen.width - margin);
+                ClampIndicatorsY = Mathf.Clamp(cubePosInScreen.y, margin, Screen.height - margin);
+
+                indicators[i].rectTransform.position = new Vector3(ClampIndicatorsX, ClampIndicatorsY, 0f);
 
             }
         }
