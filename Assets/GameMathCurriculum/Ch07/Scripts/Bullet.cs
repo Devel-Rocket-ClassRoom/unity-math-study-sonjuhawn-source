@@ -22,7 +22,6 @@ public class Bullet : MonoBehaviour
 
         transform.position = CubicBezier(p0, p1, p2, p3, t);
 
-        // 도착하면 삭제
         if (t >= 1f)
         {
             Destroy(gameObject);
