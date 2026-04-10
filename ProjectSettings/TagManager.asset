@@ -10,16 +10,17 @@ TagManager:
   - Selectable
   - Unit
   - Ground
+  - Cube
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Layer
+  - DropObject
+  - DropZone
   - 
   - 
   - 

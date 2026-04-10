@@ -35,28 +35,40 @@ public class IndicatorController : MonoBehaviour
             }
             else
             {
+                Vector3 local = cam.transform.InverseTransformPoint(cubes[i].transform.position);
+                Vector2 dir = new Vector2(local.x, local.y).normalized;
+                Vector2 center = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+                float scale = Mathf.Min(center.x / Mathf.Abs(dir.x), center.y / Mathf.Abs(dir.y));
+                Vector2 pos = center + dir * scale;
+                indicators[i].transform.position = new Vector3(pos.x, pos.y, 0);
                 indicators[i].enabled = true;
 
-                float centerX = Screen.width / 2f;
-                float centerY = Screen.height / 2f;
 
-                float ClampIndicatorsX;
-                float ClampIndicatorsY;
+                //indicators[i].enabled = true;
 
-                // 중심 기준 반전
-                if (cubePosInView.z < 0)
-                {
-                    float reversedX = centerX + (centerX - cubePosInScreen.x);
-                    float reversedY = centerY + (centerY - cubePosInScreen.y);
+                //float centerX = Screen.width / 2f;
+                //float centerY = Screen.height / 2f;
 
-                    ClampIndicatorsX = Mathf.Clamp(reversedX, margin, Screen.width - margin);
-                    ClampIndicatorsY = Mathf.Clamp(reversedY, margin, Screen.height - margin);
-                }
+                //float ClampIndicatorsX;
+                //float ClampIndicatorsY;
 
-                ClampIndicatorsX = Mathf.Clamp(cubePosInScreen.x, margin, Screen.width - margin);
-                ClampIndicatorsY = Mathf.Clamp(cubePosInScreen.y, margin, Screen.height - margin);
+                //// 중심 기준 반전
+                //if (cubePosInView.z < 0)
+                //{
+                //    float reversedX = centerX + (centerX - cubePosInScreen.x);
+                //    float reversedY = centerY + (centerY - cubePosInScreen.y);
 
-                indicators[i].rectTransform.position = new Vector3(ClampIndicatorsX, ClampIndicatorsY, 0f);
+                //    ClampIndicatorsX = Mathf.Clamp(reversedX, margin, Screen.width - margin);
+                //    ClampIndicatorsY = Mathf.Clamp(reversedY, margin, Screen.height - margin);
+                //}
+                //else
+                //{
+                //    ClampIndicatorsX = Mathf.Clamp(cubePosInScreen.x, margin, Screen.width - margin);
+                //    ClampIndicatorsY = Mathf.Clamp(cubePosInScreen.y, margin, Screen.height - margin);
+                //}
+
+
+                //indicators[i].rectTransform.position = new Vector3(ClampIndicatorsX, ClampIndicatorsY, 0f);
 
             }
         }
